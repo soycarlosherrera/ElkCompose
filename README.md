@@ -67,6 +67,10 @@ Para configurar el patrón de índice en Kibana, sigue estos pasos:
 - **Logstash** puede configurarse editando el archivo `logstash.conf` en el directorio `logstash/config`.
 - **Kibana** puede configurarse editando el archivo `kibana.yml` en el directorio `kibana/config`.
 
+## Comandos Útiles 📜
+
+Dentro del proyecto se encuentra un archivo llamado `GuiaComandos.txt`, en el cual pueden encontrar comandos útiles para este proyecto y los relacionados con Docker Compose. Asegúrate de revisarlo para obtener información adicional sobre cómo administrar y utilizar el proyecto.
+
 ## Contribuir 🤝
 
 ¡Las contribuciones son bienvenidas! Para contribuir, sigue estos pasos:
@@ -84,5 +88,4 @@ Este proyecto está licenciado bajo la Licencia MIT. Esto significa que puedes u
 ## Contacto ✉️
 
 Para cualquier consulta, puedes contactarme a través de [mi perfil de GitHub](https://github.com/soycarlosherrera).
-
 
