@@ -1,0 +1,72 @@
+version: '3.7'
+networks:
+  elk_network:
+    driver: bridge
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.18
+    container_name: elasticsearch
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    environment:
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+    volumes:
+      - ./elasticsearch/data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - elk_network
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.17.18
+    container_name: logstash
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline
+    ports:
+      - 5044:5044
+    networks:
+      - elk_network
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.18
+    container_name: kibana
+    ports:
+      - 5601:5601
+    networks:
+      - elk_network
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:7.17.18
+    container_name: filebeat 
+    user: root
+    volumes:
+      - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./logs/:/usr/share/filebeat/logs/:ro
+    command: filebeat -e --strict.perms=false -E setup.kibana.host=localhost:5601 
+    networks:
+      - elk_network
+
+#  metricbeat:
+#    image: docker.elastic.co/beats/metricbeat:7.17.18
+#    user: root
+#    volumes:
+#      - ./metricbeat/metricbeat.docker.yml:/usr/share/metricbeat/metricbeat.yml:ro
+#      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+#      - /proc:/hostfs/proc:ro
+#      - /:/hostfs:ro
+#    command: 
+#      - "/bin/bash"
+#      - "-c"
+#      - "metricbeat -e --strict.perms=false -system.hostfs=/hostfs"
+#    depends_on:
+#      - elasticsearch
+#      - kibana
+#    networks:
+#      - elk_network  

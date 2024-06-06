@@ -1,0 +1,19 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    #- /logs/*/*/*
+    - /usr/share/filebeat/logs/*
+  encoding: utf-8
+  scan_frequency: 10s
+  
+output.logstash:
+  hosts: ["logstash:5044"]
+  
+#output.elasticsearch:
+#  hosts: ["elasticsearch:9200"]
+#output.elasticsearch.index: "customname-%{[agent.version]}"
+#setup.template.name: "customname-%{[agent.version]}"
+#setup.template.pattern: "customname-%{[agent.version]}"
+
+

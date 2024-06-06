@@ -1,0 +1,60 @@
+# Comandos Básicos de Docker
+
+# Iniciar un contenedor
+docker start <container_id>
+
+# Detener un contenedor
+docker stop <container_id>
+
+# Verificar el estado de los contenedores en ejecución
+docker ps
+
+# Verificar el estado de todos los contenedores (incluidos los detenidos)
+docker ps -a
+
+# Ver los logs de un contenedor
+docker logs <container_id>
+
+# Eliminar un contenedor
+docker rm <container_id>
+
+# Eliminar una imagen
+docker rmi <image_id>
+
+# Comandos Básicos de Docker Compose
+
+# Iniciar todos los servicios definidos en el archivo docker-compose.yml
+docker-compose up
+docker-compose up -d  # Inicia en segundo plano (modo "detached")
+
+# Detener todos los servicios definidos en el archivo docker-compose.yml
+docker-compose down
+
+# Reiniciar un servicio específico
+docker-compose restart <service_name>
+
+# Verificar el estado de los servicios
+docker-compose ps
+
+# Ver los logs de todos los servicios
+docker-compose logs
+docker-compose logs <service_name>  # Logs de un servicio específico
+
+# Iniciar un servicio específico
+docker-compose up <service_name>
+docker-compose up -d <service_name>  # Inicia en segundo plano
+
+# Detener un servicio específico
+docker-compose stop <service_name>
+
+# Otros Comandos Útiles de Docker
+
+# Inspeccionar un contenedor
+docker inspect <container_id>
+
+# Ver imágenes locales
+docker images
+
+# Ejecutar un comando en un contenedor en ejecución
+docker exec -it <container_id> <command>
+docker exec -it <container_id> /bin/bash  # Abrir una terminal interactiva en el contenedor
